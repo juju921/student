@@ -21,7 +21,7 @@ class CreateStudentsTable extends Migration {
             $table->enum('type', ['dev', 'graphisme', 'editor'])->nullable();
             $table->integer('note')->nullable();
             $table->enum('status', ['publish', 'unpublish', 'trash'])->default('unpublish');
-            $table->string('uri',200)->nullable();
+            $table->string('avatar',200)->nullable();
             $table->timestamps();
 
 
