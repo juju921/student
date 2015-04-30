@@ -29,10 +29,10 @@
         {{ $errors->first('status', '<span class="help-block">:message</span>') }}
     </div>
 
-       <div class="form-group {{$errors->has('uri')? 'has-error' : '' }}">
-            {!! Form::label('uri', 'uri:' ) !!}<br>
-            {!! Form::file('uri',[ 'id' => 'uri'], old('uri')) !!}
-            {{ $errors->first('status', '<span class="help-block">:message</span>') }}
+       <div class="form-group {{$errors->has('avatar')? 'has-error' : '' }}">
+            {!! Form::label('avatar', 'avatar:' ) !!}<br>
+            {!! Form::file('avatar',[ 'id' => 'avatar'], old('avatar')) !!}
+            {{ $errors->first('avatar', '<span class="help-block">:message</span>') }}
         </div>
 
 

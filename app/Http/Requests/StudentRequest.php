@@ -31,6 +31,7 @@ class StudentRequest extends Request {
 			'firstname'=> 'required',
             'name'=>'required',
             'status'=>'in:publish,unpublish',
+            'avatar'=> 'image|max: 1000000',
 
 		];
 	}

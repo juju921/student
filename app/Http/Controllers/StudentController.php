@@ -4,6 +4,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Student;
 use Illuminate\Http\Request;
+use Input;
+use Validator;
+use redirect;
+
 
 class StudentController extends Controller {
 
@@ -14,7 +18,8 @@ class StudentController extends Controller {
 	 */
 	public function index()
 	{
-		$students = \App\Student::paginate(5);
+
+		$students = \App\Student::paginate(25);
         $students->setPath('students');
         return view('student.index', compact('students'));
 	}
@@ -38,6 +43,32 @@ class StudentController extends Controller {
 	public function store(Requests\StudentRequest $request)
 	{
         //dd($request->all());
+        if($request->hasFile('avatar')){
+            if($request->hasFile('avatar'))
+            {
+                //dd(getimagesize($_FILES['avatar']['tmp_name']));  //test de sécurité
+                $file = $request->file('avatar');
+                $ext = $file->getClientOriginalExtension();
+
+                $fileName = str_random(12) . "." . $ext;
+
+                $dirUpload = public_path('upload');
+
+                $file->move($dirUpload, $fileName);
+
+            }
+
+            $student = Student::create($request->all());
+
+            $student->avatar = (isset($fileName))? $fileName : null;
+            $student->save();
+
+            return redirect()->to('student')->with('message','ok');
+
+
+
+        }
+
         student::create($request->all());
         return redirect()->to('student')->with('message','ok');
 
@@ -76,7 +107,30 @@ class StudentController extends Controller {
     public function update(Requests\StudentRequest $request, $id)
     {
 
+        $student = Student::find($id);
+        if($request->hasFile('avatar')){
+
+            $file = $request->file('avatar');
+            $fileName = public_path('upload').'/'. $student->avatar;
+
+            if(File::exists($fileName)){
+
+                File::delete($fileName);
+
+            }
+            $ext =  $file->getClientOriginalExtension();
+            $fileName = str_random(12) . "." . $ext;
+
+            $dirUpload = public_path('upload');
+
+            $file->move($dirUpload, $fileName);
+            $student->avatar  = $fileName;
+            $student->save();
+
+
+        }
         Student::find($id)->update($request->all());
+
         return redirect()->to('student')->with('message', 'ok');
     }
 

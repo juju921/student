@@ -13,7 +13,7 @@ class Student extends Model {
         'publish_at',
         'bio',
         'status',
-        'uri'
+        'avatar'
     ];
 
     /**

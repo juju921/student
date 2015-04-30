@@ -12,6 +12,7 @@
     <table class="table table-hover table-bordered">
         <thead>
         <tr>
+            <th>avatar</th>
             <th>Status</th>
             <th>Voir</th>
             <th>Prénom</th>
@@ -27,6 +28,7 @@
         <tr>
        @foreach($students as $student)
              <tr class="{{($student->status=='publish')? 'success' : 'info'}}">
+                <td><img src="{{url('upload/'.$student->avatar)}}" alt=""/></td>
                  <td>{{$student->status}}</td>
                  <td><a href="{{url('student/'.$student->id)}}"><span
                                  class="glyphicon glyphicon-eye-open"></span></a></td>

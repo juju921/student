@@ -38,6 +38,16 @@
         {!! $errors->first('bio', '<span class="help-block">:message</span>') !!}
     </div>
 
+    @if($student->avatar)
+
+    <img src="{{url('upload/'.$student->avatar)}}" alt="" width="110"/>
+
+    @endif
+    <div class="form-group {{$errors->has('avatar')? 'has-error' : '' }}">
+            {!! Form::label('avatar', 'avatar:' ) !!}<br>
+            {!! Form::file('avatar',[ 'id' => 'avatar'], old('avatar')) !!}
+            {{ $errors->first('avatar', '<span class="help-block">:message</span>') }}
+        </div>
 
 
     <div class="form-group">
